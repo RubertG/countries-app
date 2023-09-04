@@ -1,6 +1,4 @@
-import React from 'react'
-
-function page() {
+function page () {
   return (
     <div>
       <h1>FrontendMentor</h1>
