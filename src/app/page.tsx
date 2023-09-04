@@ -1,8 +1,10 @@
+import { Header } from '@/components/Layout/Header/Header'
+
 function page () {
   return (
-    <div>
-      <h1>FrontendMentor</h1>
-    </div>
+    <>
+      <Header />
+    </>
   )
 }
 
