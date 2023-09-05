@@ -1,3 +1,7 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-return-assign */
+/* eslint-disable @typescript-eslint/no-extraneous-class */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 export interface CountryAPIResponse {
   name: Name
   tld?: string[]
