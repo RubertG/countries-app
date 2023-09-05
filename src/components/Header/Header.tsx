@@ -1,5 +1,5 @@
 'use client'
-import SunIcon, { MoonIcon } from '@/components/Icons/Icons'
+import { SunIcon, MoonIcon } from '@/components/Icons/Icons'
 import { THEME } from '@/consts/consts'
 import { type ThemeType } from '@/types/types'
 import { useEffect, useState } from 'react'
@@ -34,7 +34,7 @@ export const Header = () => {
 
   return (
     <header
-      className='bg-white dark:bg-dark-blue py-5 px-1 shadow-md'
+      className='bg-white dark:bg-dark-blue py-5 md:py-3 px-1 shadow-md'
     >
       <div
       className='flex justify-between items-center max-w-6xl m-auto px-4'>
@@ -42,7 +42,7 @@ export const Header = () => {
           className='font-extrabold text-xl'
         >¿Donde en el mundo?</h1>
         <button
-          className='w-9 h-9 lg:w-10 lg:h-10 p-2 grid place-content-center bg-very-light-gray dark:bg-very-dark-blue rounded-full shadow-xl border-[1px] border-gray-100 dark:border-very-dark-blue  md:hover:scale-110 md:active:scale-90 md:transition-transform'
+          className='w-9 h-9 lg:w-10 lg:h-10 p-2 grid place-content-center bg-very-light-gray dark:bg-very-dark-blue rounded-full shadow-md border-[1px] border-gray-100 dark:border-very-dark-blue  md:hover:scale-110 md:active:scale-90 md:transition-transform'
           onClick={handleTheme}>
           <MoonIcon className='w-full h-full block dark:hidden fill-very-dark-blue' />
           <SunIcon className='w-full h-full hidden dark:block fill-very-light-gray' />
