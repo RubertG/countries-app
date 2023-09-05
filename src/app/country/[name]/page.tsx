@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 async function getDataCountry (name: string) {
   name = name.replaceAll('-', '%20')
-  const res = await fetch(`http://localhost:3000/api/country/${name}`)
+  const res = await fetch(`https://restcountries.com/v3.1/name/${name}`)
   const data = await res.json()
   return data[0] as CountryAPIResponse
 }
