@@ -1,8 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { SkeletonTheme } from 'react-loading-skeleton'
 import { Nunito_Sans } from 'next/font/google'
 
-const inter = Nunito_Sans({ subsets: ['latin'], weight: ['300', '400', '600', '800'] })
+const inter = Nunito_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '800'] })
 
 export const metadata: Metadata = {
   title: 'Countries app - busca y obtén información sobre tu país.',
@@ -17,7 +18,12 @@ export default function RootLayout ({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <SkeletonTheme baseColor="#c2c2c2" highlightColor="#9b9b9b">
+          {children}
+        </SkeletonTheme>
+
+      </body>
     </html>
   )
 }
