@@ -8,14 +8,13 @@ function Countries () {
   const [countries, setCountries] = useState<CountryAPIResponse[]>()
 
   useEffect(() => {
+    const getCountries = async () => {
+      const res = await fetch('/api/country')
+      const data = await res.json() as CountryAPIResponse[]
+      setCountries(data)
+    }
     void getCountries()
   }, [])
-
-  const getCountries = async () => {
-    const res = await fetch('/api/country')
-    const data = await res.json() as CountryAPIResponse[]
-    setCountries(data)
-  }
 
   return (
     <section

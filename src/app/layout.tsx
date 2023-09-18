@@ -28,7 +28,6 @@ export default function RootLayout ({
             {children}
           </main>
         </SkeletonTheme>
-
       </body>
     </html>
   )
