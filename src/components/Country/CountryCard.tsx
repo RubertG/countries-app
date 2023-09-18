@@ -1,7 +1,7 @@
-import { type CountryAPIResponse } from '@/types/countryAPIRespone'
+import { type CountryShort } from '@/types/types'
 import Link from 'next/link'
 
-function CountryCard ({ name, flags, capital, population }: CountryAPIResponse) {
+function CountryCard ({ name, flags, capital, population }: CountryShort) {
   const nameRef = name.common.toLocaleLowerCase().replaceAll(' ', '-')
 
   return (

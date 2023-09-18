@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { Nunito_Sans } from 'next/font/google'
 import { Header } from '@/components/Header/Header'
+import { CountryProvider } from '@/context/CountryContext'
 
 const inter = Nunito_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '800'] })
 
@@ -25,7 +26,9 @@ export default function RootLayout ({
           <main
             className='max-w-6xl px-4 m-auto mb-16'
           >
-            {children}
+            <CountryProvider>
+              {children}
+            </CountryProvider>
           </main>
         </SkeletonTheme>
       </body>
