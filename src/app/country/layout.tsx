@@ -35,7 +35,7 @@ function LayoutCountry ({ children }: { children: ReactNode }) {
                 <p className='dark:text-gray-300 mb-1'><Skeleton /></p>
                 <p className='dark:text-gray-300 mb-1'><Skeleton /></p>
               </div>
-              <div className='mt-5 xl:mt-0'>
+              <div className='mt-1 md:mt-0'>
                 <p className='dark:text-gray-300 mb-1'><Skeleton /></p>
                 <p className='dark:text-gray-300 mb-1'><Skeleton /></p>
                 <p className='dark:text-gray-300 mb-1'><Skeleton /></p>

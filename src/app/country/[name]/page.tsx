@@ -56,7 +56,7 @@ async function CountryPage ({ params }: Props) {
               <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Subregión:</strong> {country.subregion}</p>
               <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Capital:</strong> {country.capital}</p>
             </div>
-            <div className='mt-5 xl:mt-0'>
+            <div className='mt-1 md:mt-0'>
               {
                 country.tld !== undefined && <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Dominio de nivel superior:</strong> {country.tld}</p>
               }

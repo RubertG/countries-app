@@ -6,6 +6,7 @@ import CountryCardSqueleton from './CountryCardSqueleton'
 import { useCountryContext } from '@/context/CountryContext'
 import { type CountryShort } from '@/types/types'
 import Searcher from '../Searcher/Searcher'
+import { formatCountriesToShort } from '@/utils/utils'
 
 function Countries () {
   const [countriesFilter, setCountriesFilter] = useState<CountryShort[]>()
@@ -16,14 +17,7 @@ function Countries () {
     const getCountries = async () => {
       const res = await fetch('/api/country')
       const data = await res.json() as CountryAPIResponse[]
-      const formattedData: CountryShort[] = data.map((c) => {
-        return {
-          name: c.name,
-          flags: c.flags,
-          capital: c.capital,
-          population: c.population
-        }
-      })
+      const formattedData = formatCountriesToShort({ data })
       setCountries(formattedData)
       setCountriesFilter(formattedData)
     }
@@ -32,23 +26,34 @@ function Countries () {
 
   return (
     <section
-      className='grid gap-5 gap-y-16 md:gap-y-[4.5rem] md:gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto my-16'
+     className='my-10'
     >
-      <Searcher countries={countries} setCountries={setCountriesFilter}/>
-       {
-        countriesFilter === undefined && (
-          Array(8).fill(null).map((_, i) => {
-            return <CountryCardSqueleton key={i} />
-          })
-        )
-      }
-      {
-        countriesFilter?.map((country, i) => {
-          return (
-            <CountryCard {...country} key={i} />
+      <Searcher countries={countries} setCountries={setCountriesFilter} />
+      <div
+        className='grid gap-5 gap-y-16 md:gap-y-[4.5rem] md:gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto my-16'
+      >
+        {
+          countriesFilter === undefined && (
+            Array(8).fill(null).map((_, i) => {
+              return <CountryCardSqueleton key={i} />
+            })
           )
-        })
-      }
+        }
+        {
+          countriesFilter?.map((country, i) => {
+            return (
+              <CountryCard {...country} key={i} />
+            )
+          })
+        }
+        {
+          countriesFilter?.length === 0 && (
+            <h3 className='text-center text-very-dark-blue-light dark:text-very-light-gray'>
+              No hay paises que coincidan con tu búsqueda.
+            </h3>
+          )
+        }
+      </div>
     </section>
   )
 }

@@ -3,6 +3,8 @@ import { MagnifyingGlass } from '../Icons/Icons'
 import { useMemo, useState, useEffect } from 'react'
 import debounce from 'lodash.debounce'
 import { type CountryShort } from '@/types/types'
+import { NOT_FOUND_API, URL_API_COUTRY } from '@/consts/consts'
+import { formatCountriesToShort } from '@/utils/utils'
 
 interface Props {
   countries: CountryShort[] | undefined
@@ -21,10 +23,23 @@ function Searcher ({ countries, setCountries }: Props) {
   )
 
   useEffect(() => {
-    const countriesFilter = countries?.filter((c) => c.name.common.toLocaleLowerCase().includes(country.toLocaleLowerCase()))
-    if (countriesFilter !== undefined) {
-      setCountries(countriesFilter)
+    const getCountries = async () => {
+      const res = await fetch(`${URL_API_COUTRY}${country}`)
+      const data = await res.json()
+      if (data.message === NOT_FOUND_API.notFound) {
+        setCountries([])
+        return
+      }
+      if (data.message === NOT_FOUND_API.pageNotFount) {
+        if (countries !== undefined) {
+          setCountries(countries)
+        }
+        return
+      }
+      setCountries(formatCountriesToShort({ data }))
     }
+
+    void getCountries()
   }, [country])
 
   useEffect(() => {
@@ -34,15 +49,15 @@ function Searcher ({ countries, setCountries }: Props) {
   }, [handleChange])
 
   return (
-    <section>
-      <MagnifyingGlass />
+    <div className='bg-white dark:bg-dark-blue shadow-lg rounded-md flex items-center px-6 gap-5 border-[1px] border-gray-100 dark:border-very-dark-blue lg:text-lg md:max-w-md'>
+      <MagnifyingGlass className='w-7 h-7 fill-dark-gray dark:fill-very-light-gray' />
       <input
         type="text"
         placeholder="Search for a country..."
         onChange={handleChange}
-        className='text-very-dark-blue-light'
+        className='bg-inherit text-dark-blue dark:text-very-light-gray py-4 w-full focus:outline-none'
       />
-    </section>
+    </div>
   )
 }
 
