@@ -23,6 +23,7 @@ function Searcher ({ countries, setCountries }: Props) {
   )
 
   useEffect(() => {
+    if (country === '') return
     const getCountries = async () => {
       const res = await fetch(`${URL_API_COUTRY}${country}`)
       const data = await res.json()
