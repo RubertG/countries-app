@@ -55,11 +55,11 @@ function Searcher ({ countries, setCountries }: Props) {
   }, [handleChange])
 
   return (
-    <div className='bg-white dark:bg-dark-blue shadow-lg rounded-md flex items-center px-6 gap-5 border-[1px] border-gray-100 dark:border-very-dark-blue lg:text-lg md:max-w-md'>
+    <div className='bg-white dark:bg-dark-blue shadow-lg rounded-md flex items-center px-6 gap-5 border-[1px] border-gray-100 dark:border-very-dark-blue lg:text-lg max-w-lg md:min-w-[26rem]'>
       <MagnifyingGlass className='w-7 h-7 fill-dark-gray dark:fill-very-light-gray' />
       <input
         type="text"
-        placeholder="Search for a country..."
+        placeholder="Buscar país..."
         onChange={handleChange}
         className='bg-inherit text-dark-blue dark:text-very-light-gray py-4 w-full focus:outline-none'
       />

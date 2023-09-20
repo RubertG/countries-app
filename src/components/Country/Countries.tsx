@@ -7,8 +7,9 @@ import { useCountryContext } from '@/context/CountryContext'
 import { type CountryShort } from '@/types/types'
 import Searcher from '../Searcher/Searcher'
 import { formatCountriesToShort } from '@/utils/utils'
+import FilterOptions from '../FilterOptions/FilterOptions'
 
-function Countries () {
+const Countries = () => {
   const [countriesFilter, setCountriesFilter] = useState<CountryShort[]>()
   const { countries, setCountries } = useCountryContext()
 
@@ -26,9 +27,14 @@ function Countries () {
 
   return (
     <section
-     className='my-10'
+      className='my-10'
     >
-      <Searcher countries={countries} setCountries={setCountriesFilter} />
+      <div
+        className='md:flex md:gap-5 md:justify-between md:items-center'
+      >
+        <Searcher countries={countries} setCountries={setCountriesFilter} />
+        <FilterOptions countries={countries} setCountries={setCountriesFilter}/>
+      </div>
       <div
         className='grid gap-5 gap-y-16 md:gap-y-[4.5rem] md:gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto my-16'
       >
@@ -46,14 +52,14 @@ function Countries () {
             )
           })
         }
-        {
-          countriesFilter?.length === 0 && (
-            <h3 className='text-center text-very-dark-blue-light dark:text-very-light-gray'>
-              No hay paises que coincidan con tu búsqueda.
-            </h3>
-          )
-        }
       </div>
+      {
+        countriesFilter?.length === 0 && (
+          <h3 className='text-center text-very-dark-blue-light dark:text-very-light-gray'>
+            No hay paises que coincidan con tu búsqueda.
+          </h3>
+        )
+      }
     </section>
   )
 }
