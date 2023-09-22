@@ -11,6 +11,7 @@ import FilterOptions from '../FilterOptions/FilterOptions'
 
 const Countries = () => {
   const [countriesFilter, setCountriesFilter] = useState<CountryShort[]>()
+  const [loading, setLoading] = useState(false)
   const { countries, setCountries } = useCountryContext()
 
   useEffect(() => {
@@ -32,14 +33,20 @@ const Countries = () => {
       <div
         className='md:flex md:gap-5 md:justify-between md:items-center'
       >
-        <Searcher countries={countries} setCountries={setCountriesFilter} />
-        <FilterOptions countries={countries} setCountries={setCountriesFilter}/>
+        <Searcher
+          countries={countries}
+          setCountries={setCountriesFilter}
+          setLoading={setLoading} />
+        <FilterOptions
+          countries={countries}
+          setCountries={setCountriesFilter}
+          setLoading={setLoading} />
       </div>
       <div
         className='grid gap-5 gap-y-16 md:gap-y-[4.5rem] md:gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto my-16'
       >
         {
-          countriesFilter === undefined && (
+          (countriesFilter === undefined || loading) && (
             Array(8).fill(null).map((_, i) => {
               return <CountryCardSqueleton key={i} />
             })

@@ -6,9 +6,10 @@ import { formatCountriesToShort } from '@/utils/utils'
 interface Props {
   countries: CountryShort[] | undefined
   setCountries: (countries: CountryShort[]) => void
+  setLoading: (loading: boolean) => void
 }
 
-function FilterOptions ({ countries, setCountries }: Props) {
+function FilterOptions ({ countries, setCountries, setLoading }: Props) {
   const handleChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -18,9 +19,11 @@ function FilterOptions ({ countries, setCountries }: Props) {
         setCountries(countries)
       }
     } else {
+      setLoading(true)
       const res = await fetch(`/api/region/${optionValue}`)
       const data = await res.json()
       const formattedData = formatCountriesToShort({ data })
+      setLoading(false)
       setCountries(formattedData)
     }
   }
@@ -37,19 +40,14 @@ function FilterOptions ({ countries, setCountries }: Props) {
           className='font-bold'
           value={CONTINENTS_OPTIONS.ALL}>Todos los paises</option>
         <option
-          className=''
           value={CONTINENTS_OPTIONS.AFRICA}>África</option>
         <option
-          className=''
           value={CONTINENTS_OPTIONS.AMERICA}>América</option>
         <option
-          className=''
           value={CONTINENTS_OPTIONS.ASIA}>Asia</option>
         <option
-          className=''
           value={CONTINENTS_OPTIONS.EUROPE}>Europa</option>
         <option
-          className=''
           value={CONTINENTS_OPTIONS.OCEANIA}>Oceanía</option>
       </select>
     </div>

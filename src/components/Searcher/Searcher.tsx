@@ -9,9 +9,10 @@ import { formatCountriesToShort } from '@/utils/utils'
 interface Props {
   countries: CountryShort[] | undefined
   setCountries: (countries: CountryShort[]) => void
+  setLoading: (loading: boolean) => void
 }
 
-function Searcher ({ countries, setCountries }: Props) {
+function Searcher ({ countries, setCountries, setLoading }: Props) {
   const [country, setCountry] = useState('')
 
   const handleChange = useMemo(
@@ -30,19 +31,23 @@ function Searcher ({ countries, setCountries }: Props) {
       return
     }
     const getCountries = async () => {
+      setLoading(true)
       const res = await fetch(`${URL_API_COUTRY}${country}`)
       const data = await res.json()
       if (data.message === NOT_FOUND_API.notFound) {
         setCountries([])
+        setLoading(false)
         return
       }
       if (data.message === NOT_FOUND_API.pageNotFount) {
         if (countries !== undefined) {
           setCountries(countries)
+          setLoading(false)
         }
         return
       }
       setCountries(formatCountriesToShort({ data }))
+      setLoading(false)
     }
 
     void getCountries()
