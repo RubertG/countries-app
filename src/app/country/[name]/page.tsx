@@ -4,9 +4,14 @@ import { type CountryAPIResponse } from '@/types/countryAPIRespone'
 import Link from 'next/link'
 
 async function getDataCountry (name: string) {
-  name = name.replaceAll('-', '%20')
-  const res = await fetch(`${URL_API_COUTRY}${name}`)
-  const data = await res.json()
+  let res = await fetch(`${URL_API_COUTRY}${name}`)
+  let data = await res.json()
+  if (data.status === 404) {
+    name = name.replaceAll('-', '%20')
+    res = await fetch(`${URL_API_COUTRY}${name}`)
+    data = await res.json()
+    return data[0] as CountryAPIResponse
+  }
   return data[0] as CountryAPIResponse
 }
 
@@ -18,6 +23,16 @@ interface Props {
 
 async function CountryPage ({ params }: Props) {
   const country = await getDataCountry(params.name)
+
+  if (country == null) {
+    return (
+      <h2
+       className='mt-10 text-center font-bold'
+      >
+        Error al obtener los datos :(
+      </h2>
+    )
+  }
 
   return (
     <>
