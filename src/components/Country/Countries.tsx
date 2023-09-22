@@ -20,8 +20,8 @@ const Countries = () => {
       const res = await fetch('/api/country')
       const data = await res.json() as CountryAPIResponse[]
       const formattedData = formatCountriesToShort({ data })
-      setCountries(formattedData)
       setCountriesFilter(formattedData)
+      setCountries(formattedData)
     }
     void getCountries()
   }, [])
@@ -46,7 +46,7 @@ const Countries = () => {
         className='grid gap-5 gap-y-16 md:gap-y-[4.5rem] md:gap-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-auto my-16'
       >
         {
-          (countriesFilter === undefined || loading) && (
+          (countries === undefined || loading) && (
             Array(8).fill(null).map((_, i) => {
               return <CountryCardSqueleton key={i} />
             })
