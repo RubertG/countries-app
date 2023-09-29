@@ -16,7 +16,7 @@ function CountryCard ({ name, flags, capital, population }: CountryShort) {
         >{name.common}</h2>
         <p
           className='mt-3'
-        ><strong className='opacity-70'>Población: </strong> {population}</p>
+        ><strong className='opacity-70'>Población: </strong> {population.toLocaleString()}</p>
         <p><strong className='opacity-70'>Capital: </strong> {capital}</p>
       </article>
     </Link>

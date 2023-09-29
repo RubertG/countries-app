@@ -66,7 +66,7 @@ async function CountryPage ({ params }: Props) {
                   <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Nombre nativo:</strong> {Object.values(country.name.nativeName)[0].official}</p>
                 )
               }
-              <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Población:</strong> {country.population}</p>
+              <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Población:</strong> {country.population.toLocaleString()}</p>
               <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Región:</strong> {country.region}</p>
               <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Subregión:</strong> {country.subregion}</p>
               <p className='dark:text-gray-300 mb-1'><strong className='text-very-dark-blue-light dark:text-gray-300'>Capital:</strong> {country.capital}</p>
