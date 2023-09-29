@@ -2,17 +2,14 @@
 import { MagnifyingGlass } from '../Icons/Icons'
 import { useMemo, useState, useEffect } from 'react'
 import debounce from 'lodash.debounce'
-import { type CountryShort } from '@/types/types'
-import { NOT_FOUND_API, URL_API_COUTRY } from '@/consts/consts'
-import { formatCountriesToShort } from '@/utils/utils'
+import { type ActionReducerType } from '@/types/types'
+import { ACTIONS_TYPES_ENUM } from '@/consts/consts'
 
 interface Props {
-  countries: CountryShort[] | undefined
-  setCountries: (countries: CountryShort[]) => void
-  setLoading: (loading: boolean) => void
+  dispatch: (action: ActionReducerType) => void
 }
 
-function Searcher ({ countries, setCountries, setLoading }: Props) {
+function Searcher ({ dispatch }: Props) {
   const [country, setCountry] = useState('')
 
   const handleChange = useMemo(
@@ -25,13 +22,14 @@ function Searcher ({ countries, setCountries, setLoading }: Props) {
 
   useEffect(() => {
     if (country === '') {
-      if (countries !== undefined) {
-        setCountries(countries)
-      }
+      dispatch({ type: ACTIONS_TYPES_ENUM.RESET_FILTER })
       return
     }
-    const getCountries = async () => {
-      setLoading(true)
+    dispatch({ type: ACTIONS_TYPES_ENUM.SEARCH_COUNTRY, payload: country })
+
+    /* const getCountries = async () => {
+      dispatch({ type: ACTIONS_TYPES_ENUM.SET_LOADING, payload: true })
+      dispatch({ type: ACTIONS_TYPES_ENUM.SET_LOADING, payload: false })
       const res = await fetch(`${URL_API_COUTRY}${country}`)
       const data = await res.json()
       if (data.message === NOT_FOUND_API.notFound) {
@@ -48,9 +46,9 @@ function Searcher ({ countries, setCountries, setLoading }: Props) {
       }
       setCountries(formatCountriesToShort({ data }))
       setLoading(false)
-    }
+    } */
 
-    void getCountries()
+    // void getCountries()
   }, [country])
 
   useEffect(() => {

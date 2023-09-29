@@ -12,11 +12,10 @@ export const NOT_FOUND_API = {
   pageNotFount: 'Page Not Found'
 } as const
 
-export const CONTINENTS_OPTIONS = {
-  ALL: 'all',
-  AFRICA: 'africa',
-  AMERICA: 'america',
-  ASIA: 'asia',
-  EUROPE: 'europe',
-  OCEANIA: 'oceania'
-} as const
+export enum ACTIONS_TYPES_ENUM {
+  SET_COUNTRIES = 'SET_COUNTRIES',
+  FILTER_CONTINENT = 'FILTER_CONTINENT',
+  SET_LOADING = 'SET_LOADING',
+  SEARCH_COUNTRY = 'SEARCH_COUNTRY',
+  RESET_FILTER = 'RESET_FILTER'
+}

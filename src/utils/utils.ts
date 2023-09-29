@@ -11,7 +11,8 @@ export function formatCountriesToShort ({ data }: Props): CountryShort[] {
       name: c.name,
       flags: c.flags,
       capital: c.capital,
-      population: c.population
+      population: c.population,
+      region: c.region
     }
   })
 }

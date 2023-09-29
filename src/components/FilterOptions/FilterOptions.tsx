@@ -1,30 +1,28 @@
 'use client'
-import { CONTINENTS_OPTIONS } from '@/consts/consts'
-import { type CountryShort } from '@/types/types'
-import { formatCountriesToShort } from '@/utils/utils'
+import { ACTIONS_TYPES_ENUM } from '@/consts/consts'
+import { Region } from '@/types/countryAPIRespone'
+import { type ActionReducerType } from '@/types/types'
+
+const ALL = 'all'
 
 interface Props {
-  countries: CountryShort[] | undefined
-  setCountries: (countries: CountryShort[]) => void
-  setLoading: (loading: boolean) => void
+  dispatch: (action: ActionReducerType) => void
 }
 
-function FilterOptions ({ countries, setCountries, setLoading }: Props) {
+function FilterOptions ({ dispatch }: Props) {
   const handleChange = async (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const optionValue = e.target.value
-    if (optionValue === CONTINENTS_OPTIONS.ALL) {
-      if (countries !== undefined) {
-        setCountries(countries)
-      }
+    if (optionValue === ALL) {
+      dispatch({ type: ACTIONS_TYPES_ENUM.RESET_FILTER })
     } else {
-      setLoading(true)
-      const res = await fetch(`/api/region/${optionValue}`)
-      const data = await res.json()
-      const formattedData = formatCountriesToShort({ data })
-      setLoading(false)
-      setCountries(formattedData)
+      // dispatch({ type: ACTIONS_TYPES_ENUM.SET_LOADING, payload: true })
+      // const res = await fetch(`/api/region/${optionValue}`)
+      // const data = await res.json()
+      // const formattedData = formatCountriesToShort({ data })
+      dispatch({ type: ACTIONS_TYPES_ENUM.FILTER_CONTINENT, payload: optionValue as Region })
+      // dispatch({ type: ACTIONS_TYPES_ENUM.SET_LOADING, payload: false })
     }
   }
 
@@ -38,17 +36,17 @@ function FilterOptions ({ countries, setCountries, setLoading }: Props) {
       >
         <option
           className='font-bold'
-          value={CONTINENTS_OPTIONS.ALL}>Todos los paises</option>
+          value={ALL}>Todos los paises</option>
         <option
-          value={CONTINENTS_OPTIONS.AFRICA}>África</option>
+          value={Region.Africa}>África</option>
         <option
-          value={CONTINENTS_OPTIONS.AMERICA}>América</option>
+          value={Region.Americas}>América</option>
         <option
-          value={CONTINENTS_OPTIONS.ASIA}>Asia</option>
+          value={Region.Asia}>Asia</option>
         <option
-          value={CONTINENTS_OPTIONS.EUROPE}>Europa</option>
+          value={Region.Europe}>Europa</option>
         <option
-          value={CONTINENTS_OPTIONS.OCEANIA}>Oceanía</option>
+          value={Region.Oceania}>Oceanía</option>
       </select>
     </div>
   )

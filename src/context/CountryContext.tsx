@@ -1,10 +1,14 @@
 'use client'
-import { type CountryShort } from '@/types/types'
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { ACTIONS_TYPES_ENUM } from '@/consts/consts'
+import { reducer } from '@/reducer/reducer'
+import { type CountryAPIResponse } from '@/types/countryAPIRespone'
+import { type ReducerType, type ActionReducerType } from '@/types/types'
+import { formatCountriesToShort } from '@/utils/utils'
+import { createContext, useContext, useEffect, useReducer, type ReactNode } from 'react'
 
 interface ValueProvider {
-  countries: CountryShort[] | undefined
-  setCountries: (countries: CountryShort[]) => void
+  countries: ReducerType
+  dispatch: (action: ActionReducerType) => void
 }
 
 export const ProjectsContext = createContext<ValueProvider | null>(null)
@@ -16,10 +20,24 @@ export function useCountryContext () {
 }
 
 export function CountryProvider ({ children }: { children: ReactNode }) {
-  const [countries, setCountries] = useState<CountryShort[]>()
+  const [countries, dispatch] = useReducer(reducer, {
+    countries: undefined,
+    loading: false,
+    filter: undefined
+  })
+
+  useEffect(() => {
+    const getCountries = async () => {
+      const res = await fetch('api/country')
+      const data = await res.json() as CountryAPIResponse[]
+      const formattedData = formatCountriesToShort({ data })
+      dispatch({ type: ACTIONS_TYPES_ENUM.SET_COUNTRIES, payload: formattedData })
+    }
+    void getCountries()
+  }, [])
 
   return (
-    <ProjectsContext.Provider value={{ countries, setCountries }}>
+    <ProjectsContext.Provider value={{ countries, dispatch }}>
       {children}
     </ProjectsContext.Provider>
   )
